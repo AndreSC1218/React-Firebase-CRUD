@@ -1,15 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const LinkForm = () =>{
+//crearemos el formulario
+//recibe un props de Links
+export const LinkForm = (props) =>{
+
+    //datos del componente
+    const initialStateValues = {
+        url: '',
+        name: '',
+        description: ''
+    };
+
+    const [values, setValues] = useState(initialStateValues);
+
+    //maneja el cambio del input
+    const handleInputChange = e =>{
+        const {name, value} = e.target;
+        console.log(name, value);
+        setValues({...values, [name]: value})
+    }
+
+
+    //controlaremos el formulario
+    const handleSubmit = e =>{
+        //para que no refrescar la pagina
+        e.preventDefault();
+        props.addOrEditLink(values);
+    }
+
     return (
-        <form className="card card-body">
-            <div className="form-group input-group">
+        <form className="card card-body" onSubmit={handleSubmit}>
+            <div className="form-group input-group p-1">
                 <div className="input-group-text bg-light">
-                    
+                    <i class="material-icons">insert_link</i>
                 </div>
-                <input type="text" className="form-control" placeholder="https://someurl.com" name="url"/>
-
+                <input onChange={handleInputChange} type="text" className="form-control" placeholder="https://someurl.com" name="url"/>
             </div>
+            <div className="form-group input-group p-1">
+                <div className="input-group-text bg-light">
+                <i class="material-icons">create</i>
+                </div>
+                <input onChange={handleInputChange} type="text" className="form-control" name="name" placeholder="website name"/>                
+            </div>
+            <div>
+                <div className="form-group p-1">
+                    <textarea onChange={handleInputChange} name="description" rows="3" className="form-control" placeholder="write a description"/>
+                </div>
+            </div>
+            <button className="btn btn-primary btn-block p-1">
+                save
+            </button>
         </form>
     )
 };
