@@ -8,6 +8,7 @@ import { useState } from "react";
 import {db} from "../firebase"
 //necesitamos esto para acceder a las colleciones
 import { collection, addDoc } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 //traemos getDocs
 import { getDocs } from "firebase/firestore";
 //onSnapshot para escuchar cambios en tiempo real
@@ -22,6 +23,17 @@ export const Links = () =>{
         await addDoc(collection(db, "links"), linkObject);
         console.log("new link added");
     }
+
+    //eliminar link
+    const onDeleteLink = async (linkId) =>{
+        //pediremos una confirmacion
+        if(window.confirm("are you sure you want to delete this link?")){
+            await deleteDoc(doc(db, "links", linkId));
+            console.log("link deleted");
+        }
+        
+    };
+
 
     //obtener links
     const getLinks = async () => {
@@ -45,11 +57,14 @@ export const Links = () =>{
         </div>
         <div className="col-md-8 p-2">
             {links.map(link => (
-                <div className="card mb-1">
+                <div className="card mb-1" key={link.id}>
                     <div className="card-body">
-                    <h4>{link.name}</h4>
-                    <h4>{link.description}</h4>
-                    <a href={link.url} target="_blank">Go to website</a>
+                    <div className="d-flex justify-content-between">
+                        <h4>{link.name}</h4>
+                        <i className="material-icons text-danger" onClick={() => onDeleteLink(link.id)}>close</i>
+                    </div>
+                    <p>{link.description}</p>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">Go to website</a>
                 </div>
                 </div>
             ))}
