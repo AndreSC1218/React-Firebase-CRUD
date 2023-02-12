@@ -1,6 +1,13 @@
+import { async } from "@firebase/util";
 import React, { useState } from "react";
+import { useEffect } from "react";
 
-//crearemos el formulario
+//importamos db firebase
+import {db} from "../firebase"
+import { doc, getDoc } from "firebase/firestore";
+
+
+//crearemos el formulario 
 //recibe un props de Links
 export const LinkForm = (props) =>{
 
@@ -19,7 +26,6 @@ export const LinkForm = (props) =>{
         setValues({...values, [name]: value})
     }
 
-
     //controlaremos el formulario
     const handleSubmit = e =>{
         //para que no refrescar la pagina
@@ -30,6 +36,19 @@ export const LinkForm = (props) =>{
         setValues({...initialStateValues})
 
     }
+
+    const getLinkById = async (id) => {
+        const linkDoc = await getDoc(doc(db, "links", id));
+        setValues({...linkDoc.data()})
+    };
+
+    useEffect(()=>{
+        if(props.currentId === ''){
+            setValues({...initialStateValues});
+        }else{
+            getLinkById(props.currentId);
+        }
+    },[props.currentId])
 
     return (
         <form className="card card-body" onSubmit={handleSubmit}>
@@ -51,7 +70,7 @@ export const LinkForm = (props) =>{
                 </div>
             </div>
             <button className="btn btn-primary btn-block p-1">
-                save
+                {props.currentId === '' ? 'save' : 'Update'}
             </button>
         </form>
     )

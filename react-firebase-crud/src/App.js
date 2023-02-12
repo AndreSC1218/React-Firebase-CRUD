@@ -1,6 +1,9 @@
 import './App.css';
 //components
 import { Links } from './components/Links';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 
@@ -9,6 +12,7 @@ function App() {
       <div className="row">
         <Links />
       </div>
+      <ToastContainer />
     </div>
   );
 }

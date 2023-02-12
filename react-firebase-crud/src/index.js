@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import './firebase'
 //bootswatch (themes for bootstrap)
 import 'bootswatch/dist/superhero/bootstrap.min.css'
+//
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
