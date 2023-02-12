@@ -56,7 +56,7 @@ export const LinkForm = (props) =>{
                 <div className="input-group-text bg-light">
                     <i class="material-icons">insert_link</i>
                 </div>
-                <input onChange={handleInputChange} type="text" className="form-control" placeholder="https://someurl.com" name="url" value={values.url}/>
+                <input onChange={handleInputChange} type="text" className="form-control" placeholder="https://www.example.com" name="url" value={values.url}/>
             </div>
             <div className="form-group input-group p-1">
                 <div className="input-group-text bg-light">
