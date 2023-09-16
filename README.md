@@ -2,8 +2,6 @@
 
 A web application for creating, reading, updating, and deleting links, functioning as a sort of note-taking app for links. Firestore is used as the database to store the links added by the user. The project was developed using React, Bootswatch, MaterializeCSS Icons, React Toastify and GH-Pages for deployment.
 
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)]()
-
 ## Deployment
 
 You can access the online application at the following link:
